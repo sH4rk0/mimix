@@ -34,7 +34,6 @@ let results:any = undefined;
 
 export function modalClose(score:number):void {
 
-
   if(window.FaceDetection !== undefined) window.FaceDetection?.postMessage(JSON.stringify({score:score}));
 
 }
@@ -61,45 +60,47 @@ export function enableCam() {
 
   async function predictWebcam() {
    
-    const radio = video.videoHeight / video.videoWidth;
+    /*const radio = video.videoHeight / video.videoWidth;
     video.style.width = videoWidth + "px";
     video.style.height = videoWidth * radio + "px";
- 
+    */
+
     // Now let's start detecting the stream.
-    if (runningMode === "IMAGE") {
+   if (runningMode === "IMAGE") {
       runningMode = "VIDEO";
       await faceLandmarker.setOptions({ runningMode: runningMode });
+      console.log("Running mode set to VIDEO");
     }
     let startTimeMs = performance.now();
-    if (lastVideoTime !== video.currentTime) {
-      lastVideoTime = video.currentTime;
+    if (lastVideoTime !== video.currentTime+5000) {
+     // console.log("predictWebcam");
+      lastVideoTime = video.currentTime+5000;
       results = faceLandmarker.detectForVideo(video, startTimeMs);
-    }
-    if (results.faceLandmarks) {
+      if (results.faceLandmarks) {
 
-      faceLandmarksValues = results.faceLandmarks;
-
-      if(results.faceBlendshapes[0])
-      blendShapesValues = results.faceBlendshapes[0].categories;
-
+        faceLandmarksValues = results.faceLandmarks;
+  
+        if(results.faceBlendshapes[0])
+        blendShapesValues = results.faceBlendshapes[0].categories;
+  
+      }
+      
+    
     
     }
-
-   // Call this function again to keep predicting when the browser is ready.
     if (webcamRunning === true) {
-      window.requestAnimationFrame(predictWebcam);
-    }
+        window.requestAnimationFrame(predictWebcam);
+      }
+   // Call this function again to keep predicting when the browser is ready.
+   
   }
 
-
-  
   // Activate the webcam stream.
   navigator.mediaDevices.getUserMedia(constraints).then((stream) => {
     video.srcObject = stream;
     video.addEventListener("loadeddata", predictWebcam);
   });
 }
-
 
 async function createFaceLandmarker() {
   const filesetResolver = await FilesetResolver.forVisionTasks(
@@ -114,8 +115,6 @@ async function createFaceLandmarker() {
     runningMode,
     numFaces: 1
   });
-
-
 
 }
 

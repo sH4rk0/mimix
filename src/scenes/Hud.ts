@@ -69,12 +69,12 @@ export default class Hud extends Phaser.Scene {
     this._noButton = this.add.image(450,400, "no").setInteractive().setTintFill(0xe3f4fa).setOrigin(0.5).setScale(1).on("pointerdown", () => {
       this.hideExitGame();
     });
-    this._exitText = this.add.text(300, 300, "Vuoi uscire dal gioco?", { fontSize: "24px", color: "#ffffff" }).setOrigin(0.5).setFontFamily(GameData.preloader.loadingTextFont);
+    this._exitText = this.add.text(300, 300, "Do you want to leave the game?", { fontSize: "24px", color: "#ffffff" }).setOrigin(0.5).setFontFamily(GameData.preloader.loadingTextFont);
    
     let _layer=this.add.image(300,512,"overlay").setOrigin(0.5).setInteractive();
 
 
-    let _siText=  this.add.text(150, 400, "SI", { fontSize: "24px", color: "#002F6C" }).setOrigin(0.5).setFontFamily(GameData.preloader.loadingTextFont);
+    let _siText=  this.add.text(150, 400, "YES", { fontSize: "24px", color: "#002F6C" }).setOrigin(0.5).setFontFamily(GameData.preloader.loadingTextFont);
 
     let _noText=  this.add.text(450, 400, "NO", { fontSize: "24px", color: "#002F6C" }).setOrigin(0.5).setFontFamily(GameData.preloader.loadingTextFont);
     this._exitContainer.add([_layer,this._yesButton, this._noButton, this._exitText,_siText,_noText]).setDepth(1000).setVisible(false);
@@ -320,19 +320,22 @@ this.showExitGame();
   
   
    detectMovements(){
+    //console.log("detectMovements");
+   
       if(faceLandmarksValues==null || faceLandmarksValues.length==0) return;
-  
+      
       this._canvas.generateTexture('canvas');
       this._canvas.clear().setFlipX(true);
   
       for (const landmarks of faceLandmarksValues) {
   
-        //console.log(landmarks);
+      //  console.log(landmarks);
         this._drawingUtils.drawConnectors(
           landmarks,
           FaceLandmarker.FACE_LANDMARKS_TESSELATION,
           { color: "#00365a70", lineWidth: 1 }
         );
+        
         this._drawingUtils.drawConnectors(
           landmarks,
           FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE,
