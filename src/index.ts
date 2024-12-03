@@ -81,10 +81,10 @@ const drawingUtils = new DrawingUtils(canvasCtx);
 
 async function predictWebcam() {
   const radio = video.videoHeight / video.videoWidth;
-  video.style.width = videoWidth + "px";
-  video.style.height = videoWidth * radio + "px";
-  canvasElement.style.width = videoWidth + "px";
-  canvasElement.style.height = videoWidth * radio + "px";
+  //video.style.width = videoWidth + "px";
+  //video.style.height = videoWidth * radio + "px";
+  canvasElement.style.width = window.innerWidth + "px";
+  canvasElement.style.height = video.clientHeight  + "px";
   canvasElement.width = video.videoWidth;
   canvasElement.height = video.videoHeight;
   // Now let's start detecting the stream.
@@ -172,6 +172,8 @@ window.addEventListener("load", () => {
     }
 
   });
+  
+
 
 });
 // on load listener
