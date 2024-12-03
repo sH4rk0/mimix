@@ -9,9 +9,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 
     <meta name="theme-color" content="#000000" />
-
-
-
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="application-name" content="<%= htmlWebpackPlugin.options.gameName %>" />
@@ -23,22 +20,12 @@
   
   </head>
 
-  <body class="game">
-    
-    
-    <div id="my-game-container">
-      <div id="my-game"></div>
-    </div>
-
-
-    <div id="liveView" class="videoView" style="position:absolute; top:0; left:0;  display: none;">
+  <body>
      
       <div style="position: relative;">
-        <video id="webcam" style="display: none;" autoplay playsinline></video>
+        <video id="webcam" autoplay playsinline></video>
+        <canvas class="output_canvas" id="output_canvas" style="position: absolute; left: 0px; top: 0px;"></canvas>
        </div>
-    </div>
-   
-
 
   </body>
 </html>
